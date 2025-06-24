@@ -224,6 +224,18 @@
     })
   }
 
+    function updatePhotoByResolution() {
+    const photo = document.getElementById('myPhoto');
+
+    if (window.innerWidth === 430 && window.innerHeight === 932) {
+      photo.src = 'assets/img/hero-430x932.jpg'; // Replace with your image
+    } else {
+      photo.src = 'assets/img/hero-bg.jpg'; // Optional: fallback image
+    }
+  }
+   
+  window.addEventListener('load', updatePhotoByResolution);
+  window.addEventListener('resize', updatePhotoByResolution);
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
