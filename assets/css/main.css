@@ -44,6 +44,22 @@
   --surface-color: #ffffff;
 }
 
+.gray-background {
+  --background-color: #6f7a80;
+  --surface-color: #ffffff;  
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --contrast-color: #ffffff;
+}
+
+.none-background {
+  --background-color: #f4fafd00;
+  --surface-color: #ffffff00;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --contrast-color: #ffffff;
+}
+
 .dark-background {
   --background-color: #040b14;
   --default-color: #ffffff;
