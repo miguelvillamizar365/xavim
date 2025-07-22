@@ -225,15 +225,101 @@
   }
 
     function updatePhotoByResolution() {
-    const photo = document.getElementById('myPhoto');
+    const myPhotohero = document.getElementById('myPhotohero-bg');
 
     if (window.innerWidth <= 430 && window.innerHeight <= 932) {
-      photo.src = 'assets/img/hero-430x932.jpg'; // Replace with your image
+      myPhotohero.src = 'assets/img/hero-430x932.jpg'; // Replace with your image
     }
     else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
-      photo.src = 'assets/img/hero-430x932.jpg'; // Replace with your image
+      myPhotohero.src = 'assets/img/hero-430x932.jpg'; // Replace with your image
     } else {
-      photo.src = 'assets/img/hero-bg.jpg'; // Optional: fallback image
+      myPhotohero.src = 'assets/img/hero-bg.jpg'; // Optional: fallback image
+    }
+
+    const myPhotobanner8 = document.getElementById('myPhotobanner8');
+
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner8.src = 'assets/img/banner/banner8_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner8.src = 'assets/img/banner/banner8_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner8.src = 'assets/img/banner/banner8.jpg'; // Optional: fallback image
+    }
+
+    
+    const myPhotobanner7 = document.getElementById('myPhotobanner7');
+
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner7.src = 'assets/img/banner/banner7_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner7.src = 'assets/img/banner/banner7_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner7.src = 'assets/img/banner/banner7.jpg'; // Optional: fallback image
+    }
+
+    const myPhotobanner6 = document.getElementById('myPhotobanner6');
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner6.src = 'assets/img/banner/banner6_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner6.src = 'assets/img/banner/banner6_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner6.src = 'assets/img/banner/banner6.jpg'; // Optional: fallback image
+    }
+
+    
+    const myPhotobanner5 = document.getElementById('myPhotobanner5');
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner5.src = 'assets/img/banner/banner5_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner5.src = 'assets/img/banner/banner5_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner5.src = 'assets/img/banner/banner5.jpg'; // Optional: fallback image
+    }
+    
+    const myPhotobanner4 = document.getElementById('myPhotobanner4');
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner4.src = 'assets/img/banner/banner4_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner4.src = 'assets/img/banner/banner4_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner4.src = 'assets/img/banner/banner4.jpg'; // Optional: fallback image
+    }
+
+    
+    const myPhotobanner3 = document.getElementById('myPhotobanner3');
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner3.src = 'assets/img/banner/banner3_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner3.src = 'assets/img/banner/banner3_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner3.src = 'assets/img/banner/banner3.jpg'; // Optional: fallback image
+    }
+    
+    
+    const myPhotobanner2 = document.getElementById('myPhotobanner2');
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner2.src = 'assets/img/banner/banner2_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner2.src = 'assets/img/banner/banner2_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner2.src = 'assets/img/banner/banner2.jpg'; // Optional: fallback image
+    }
+    
+    const myPhotobanner1 = document.getElementById('myPhotobanner1');
+    if (window.innerWidth <= 430 && window.innerHeight <= 932) {
+      myPhotobanner1.src = 'assets/img/banner/banner1_430x930.jpg'; // Replace with your image
+    }
+    else if (window.innerWidth <= 1220 && window.innerHeight <= 2652) {
+      myPhotobanner1.src = 'assets/img/banner/banner1_430x930.jpg'; // Replace with your image
+    } else {
+      myPhotobanner1.src = 'assets/img/banner/banner1.jpg'; // Optional: fallback image
     }
   }
    
