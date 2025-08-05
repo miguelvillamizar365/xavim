@@ -9,6 +9,28 @@
 (function() {
   "use strict";
 
+  $('.popup-video').magnificPopup({
+  type: 'iframe',
+  iframe: {
+    patterns: {
+      youtube: {
+        index: 'youtube.com/',
+        id: function(url) {
+          const match = url.match(/[\\?\\&]v=([^\\?\\&]+)/);
+          console.log(match && match[1] ? match[1] : null);
+          return match && match[1] ? match[1] : null;
+        },
+        src: 'https://www.youtube.com/embed/%id%?autoplay=1'
+      }
+    },
+    markup: '<div class="mfp-iframe-scaler">' +
+              '<div class="mfp-close"></div>' +
+              '<iframe class="mfp-iframe" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>' +
+            '</div>'
+  }
+});
+
+
   /**
    * Header toggle
    */
@@ -24,6 +46,7 @@
   /**
    * Hide mobile nav on same-page/hash links
    */
+  
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
     navmenu.addEventListener('click', () => {
       if (document.querySelector('.header-show')) {
@@ -333,4 +356,13 @@
 //     interval: 2000,
 //     wrap: false
 //   });
+
+ const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    const videoURL = 'https://www.youtube.com/embed/6YOKU4eJdNs?autoplay=1&mute=1';
+
+    videoModal.addEventListener('show.bs.modal', () => {
+      videoFrame.src = videoURL;
+    });
+
 })();

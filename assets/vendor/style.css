@@ -1,0 +1,214 @@
+
+/* line 5, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .col-xl-3:nth-child(3) .single_video {
+  margin-left: 0px;
+  padding-bottom: 5px;
+}
+
+/* line 12, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video {
+  position: relative;
+  margin-right: 5px;
+}
+
+@media (max-width: 767px) {
+  /* line 12, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video {
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 12, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video {
+    margin: 0;
+  }
+}
+
+/* line 22, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .thumb img {
+  width: 100%;
+}
+
+/* line 26, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+/* line 34, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements .video {
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* line 39, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements .video a {
+  background: #ED1B1B;
+  width: 58px;
+  height: 58px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  font-size: 14px;
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  line-height: 58px;
+  margin-bottom: 40px;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 0;
+}
+
+@media (max-width: 767px) {
+  /* line 39, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .video a {
+    opacity: 1;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 39, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .video a {
+    opacity: 1;
+    margin-bottom: 0;
+  }
+}
+
+/* line 62, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements .hover_inner {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  /* line 62, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .hover_inner {
+    bottom: 20px;
+  }
+}
+
+/* line 69, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements .hover_inner span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ED1B1B;
+  font-family: "Muli", sans-serif;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  position: relative;
+  left: 30px;
+  opacity: 0;
+}
+
+@media (max-width: 767px) {
+  /* line 69, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .hover_inner span {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 69, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .hover_inner span {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+/* line 87, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements .hover_inner h3 {
+  margin-bottom: 0;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  position: relative;
+  top: 30px;
+  opacity: 0;
+}
+
+@media (max-width: 767px) {
+  /* line 87, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .hover_inner h3 {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 87, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .hover_inner h3 {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* line 101, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video .hover_elements .hover_inner h3 a {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  /* line 101, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+  .youtube_video_area .single_video .hover_elements .hover_inner h3 a {
+    font-size: 18px;
+  }
+}
+
+/* line 113, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video:hover .hover_elements {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* line 115, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video:hover .hover_elements .hover_inner {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+
+/* line 119, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video:hover .hover_elements .hover_inner span {
+  left: 0px;
+  opacity: 1;
+}
+
+/* line 123, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video:hover .hover_elements .hover_inner h3 {
+  top: 0px;
+  opacity: 1;
+}
+
+/* line 129, ../../Arafath/CL/Cl November/221. Music/HTML/scss/_video.scss */
+.youtube_video_area .single_video:hover .hover_elements .video a {
+  opacity: 1;
+  margin-bottom: 0;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
