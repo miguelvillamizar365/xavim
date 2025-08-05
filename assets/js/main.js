@@ -359,10 +359,14 @@
 
  const videoModal = document.getElementById('videoModal');
     const videoFrame = document.getElementById('videoFrame');
-    const videoURL = 'https://www.youtube.com/embed/6YOKU4eJdNs?autoplay=1&mute=1';
+    const videoURL = 'https://youtu.be/WOQdu-vX0CI';
 
     videoModal.addEventListener('show.bs.modal', () => {
       videoFrame.src = videoURL;
+    });
+    
+    videoModal.addEventListener('show.bs.modal', () => {
+      videoFrame.src = '';
     });
 
 })();
