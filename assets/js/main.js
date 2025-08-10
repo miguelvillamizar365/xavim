@@ -9,6 +9,15 @@
 (function() {
   "use strict";
 
+const links = document.getElementsByClassName('my-link');
+for (let i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function(event) {
+      const clickedUrl = event.target.href;
+      const videoFrame = document.getElementById('videoFrame');
+      videoFrame.src = clickedUrl;
+    });
+  }
+  
   $('.popup-video').magnificPopup({
   type: 'iframe',
   iframe: {
@@ -351,22 +360,12 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
-//   var myCarousel = document.querySelector('#myCarousel')
-// var carousel = new bootstrap.Carousel(myCarousel, {
-//     interval: 2000,
-//     wrap: false
-//   });
-
- const videoModal = document.getElementById('videoModal');
-    const videoFrame = document.getElementById('videoFrame');
-    const videoURL = 'https://youtu.be/WOQdu-vX0CI';
-
-    videoModal.addEventListener('show.bs.modal', () => {
-      videoFrame.src = videoURL;
-    });
+    const videoModal = document.getElementById('videoModal');
     
-    videoModal.addEventListener('show.bs.modal', () => {
+    videoModal.addEventListener('hide.bs.modal', () => {
       videoFrame.src = '';
     });
 
+  
 })();
+
