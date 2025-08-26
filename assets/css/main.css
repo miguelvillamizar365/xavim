@@ -69,6 +69,14 @@
   --contrast-color: #ffffff;
 }
 
+.transparent-background {
+  --background-color: #040b1400;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --surface-color: #151f2b;
+  --contrast-color: #ffffff;
+}
+
 /* Smooth scroll */
 :root {
   scroll-behavior: smooth;
@@ -1343,4 +1351,23 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+/* Make video fill background */
+.video-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover; /* ensures it covers screen */
+  z-index: -1; /* behind everything */
+}
+
+.content {
+  position: relative;
+  z-index: 1; /* keep content above video */
+  text-align: center;
+  color: white;
+  padding-top: 20%;
 }
