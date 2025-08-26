@@ -234,11 +234,17 @@ h6 {
 
   .header~main,
   .header~#footer {
-    margin-left: 300px;
+    margin-left: 0px;
   }
 }
 
 @media (max-width: 1199px) {
+  .header {
+    left: -100%;
+  }
+}
+
+@media (max-width: 2560px) {
   .header {
     left: -100%;
   }
@@ -563,6 +569,7 @@ section,
 .section-title p {
   margin-bottom: 0;
 }
+
 
 /*--------------------------------------------------------------
 # Hero Section
@@ -1354,20 +1361,25 @@ section,
 }
 
 /* Make video fill background */
-.video-background {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  object-fit: cover; /* ensures it covers screen */
-  z-index: -1; /* behind everything */
-}
 
-.content {
+/* Fullscreen video background */
+.video-background {
+  width: 100%;
+  min-height: 100vh;
   position: relative;
-  z-index: 1; /* keep content above video */
-  text-align: center;
-  color: white;
-  padding-top: 20%;
+  padding: 0px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Expand everything to full width */
+main, section, .section, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.container {
+  max-width: 100% !important;
 }
