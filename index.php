@@ -1,7 +1,7 @@
 
 <?php
 // Database connection
-$host = "localhost";       // or your server host
+$host = "127.0.0.1";       // or your server host
 $user = "root";            // your MySQL username
 $pass = "";                // your MySQL password
 $db   = "xavim_app";       // your database name
@@ -14,10 +14,10 @@ if ($conn->connect_error) {
 }
 
 // Query only published news, order by updated_at and created_at descending
-$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, CreatedAt, UpdatedAt
+$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, Created_At, Updated_At
         FROM News
         WHERE IsPublished = 1
-        ORDER BY UpdatedAt DESC, CreatedAt DESC";
+        ORDER BY Updated_At DESC, Created_At DESC";
 
 $result = $conn->query($sql);
 ?>

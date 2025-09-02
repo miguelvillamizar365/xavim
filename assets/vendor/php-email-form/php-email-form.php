@@ -51,12 +51,12 @@ class PHP_Email_Form {
         $this->mail->Host       = 'smtp.gmail.com';
         $this->mail->SMTPAuth   = true;
         $this->mail->Username   = 'miguelvillamizar365@gmail.com';     // your Gmail
-        $this->mail->Password   = '107096686310Mi*';       // ⚠️ not your normal password, but an "App Password"
+        $this->mail->Password   = 'bibq nqpr hmjn cshs';       // ⚠️ not your normal password, but an "App Password"
         $this->mail->SMTPSecure = 'tls';
         $this->mail->Port       = 587;
 
         // Recipients
-        $this->mail->setFrom($this->from_name, 'Your Name');
+        $this->mail->setFrom($this->from_name, 'Web Page Xavi.m');
         $this->mail->addAddress($this->to);
 
         // Content
