@@ -1385,5 +1385,31 @@ main, section, .section, body {
 }
 
 .font-xavimurillo{
-  font-family: "Architects Daughter", sans-serif;
+  font-family: "Great Vibes", cursive;
+}
+
+#hero {
+  position: relative; /* container should be relative */
+  height: 100vh; /* full screen height */
+}
+
+#hero .container {
+  position: absolute;
+  bottom: 0;   /* stick to bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* Todo el texto dentro de la sección Currículum */
+#resume, 
+#resume h2,
+#resume h3,
+#resume h4,
+#resume h5,
+#resume p,
+#resume li,
+#resume em,
+#resume a {
+  color: #000 !important; /* fuerza a negro */
 }
