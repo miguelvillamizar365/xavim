@@ -1,7 +1,7 @@
 
 <?php
 // Database connection
-$host = "localhost";       // or your server host
+$host = "127.0.0.1";       // or your server host
 $user = "root";            // your MySQL username
 $pass = "";                // your MySQL password
 $db   = "xavim_app";       // your database name
@@ -14,10 +14,10 @@ if ($conn->connect_error) {
 }
 
 // Query only published news, order by updated_at and created_at descending
-$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, CreatedAt, UpdatedAt
+$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, Created_At, Updated_At
         FROM News
         WHERE IsPublished = 1
-        ORDER BY UpdatedAt DESC, CreatedAt DESC";
+        ORDER BY Updated_At DESC, Created_At DESC";
 
 $result = $conn->query($sql);
 ?>
@@ -71,8 +71,8 @@ $result = $conn->query($sql);
   <link href="assets/vendor/scss/_video.scss" rel="stylesheet">
   <link href="assets/vendor/slick.css" rel="stylesheet">
   <link href="assets/vendor/style.css" rel="stylesheet">
- 
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
@@ -142,19 +142,11 @@ $result = $conn->query($sql);
 
     <!-- Hero Section -->
    
-    <!-- <section id="hero" class="hero section dark-background" style="position: fixed; text-align: center; z-index: -1;">
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2 class="font-xavimurillo">Xavi Murillo</h2>
-        <p class="font-xavimurillo">Soy Compositor, Productor, Pianista<span class="typed-cursor typed-cursor--blink" aria-hidden="true">
-          </span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
-      </div>
-    </section> -->
-    
     <section id="hero" class="hero section dark-background" style="position: absolute !important; text-align: center;">
       <!-- <img id="myPhoto"  class="my-image" src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class=""> -->
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <h2 class="font-xavimurillo">Xavi Murillo</h2>
-        <p class="font-xavimurillo">Soy Compositor, Productor, Pianista<span class="typed-cursor typed-cursor--blink" aria-hidden="true">
+        <p class="font-xavimurillo">Soy Productor, Compositor, Pianista<span class="typed-cursor typed-cursor--blink" aria-hidden="true">
           </span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
       </div>
     </section>
@@ -360,19 +352,19 @@ $result = $conn->query($sql);
     </section><!-- /Skills Section -->
 
     <!-- currículum Section -->
-    <section id="resume" class="resume section dark-background">
+    <section id="resume" class="resume section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2 style="color: white !important;">Currículum</h2>
+        <h2>Currículum</h2>
         <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
       </div><!-- End Section Title -->
 
       
       <div class="container">
         <div class="row">
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title" style="color: white !important;">Historial Académico</h3>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">Historial Académico</h3>
 
           <div class="accordion" id="accordionExample">
             <div class="resume-item">
@@ -441,9 +433,14 @@ $result = $conn->query($sql);
                 </div>
               </div>
             </div>
-          </div>
 
-          <h3 class="resume-title" style="color: white !important;">Experiencia Profesional</h3>
+          </div>
+        </div> 
+         
+        
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="resume-title">Experiencia Profesional</h3>
+          
             <div class="accordion" id="accordionExample">
               <div class="resume-item">
                 <div class="accordion-item">
