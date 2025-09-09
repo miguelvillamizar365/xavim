@@ -365,8 +365,6 @@ for (let i = 0; i < links.length; i++) {
     videoModal.addEventListener('hide.bs.modal', () => {
       videoFrame.src = '';
     });
-
-    
   
 })();
 

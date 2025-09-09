@@ -55,6 +55,7 @@ $result = $conn->query($sql);
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -72,7 +73,8 @@ $result = $conn->query($sql);
   <link href="assets/vendor/slick.css" rel="stylesheet">
   <link href="assets/vendor/style.css" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
@@ -84,6 +86,21 @@ $result = $conn->query($sql);
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <!-- Your existing head content -->
+  
+  <style>
+    /* Custom font size improvements */
+    body { font-size: 16px !important; }
+    p { font-size: 16px !important; line-height: 1.7 !important; }
+    .card-text { font-size: 16px !important; }
+    .accordion-body { font-size: 15px !important; }
+    .service-item p { font-size: 16px !important; }
+    
+    @media (max-width: 768px) {
+      body { font-size: 16px !important; }
+      p { font-size: 16px !important; }
+    }
+  </style>
 </head>
 
 <body class="index-page">
@@ -146,14 +163,14 @@ $result = $conn->query($sql);
       <!-- <img id="myPhoto"  class="my-image" src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class=""> -->
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <h2 class="font-xavimurillo">Xavi Murillo</h2>
-        <p class="font-xavimurillo">Soy Productor, Compositor, Pianista<span class="typed-cursor typed-cursor--blink" aria-hidden="true">
+        <p class="font-xavimurillo">Soy Compositor, Productor, Pianista<span class="typed-cursor typed-cursor--blink" aria-hidden="true">
           </span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
       </div>
     </section>
       <!-- Video Background -->
-      <video autoplay muted loop playsinline class="video-background">
+        <video autoplay muted loop playsinline class="video-background">
         <source src="assets/videos/Max_Richter_TheDeparture.mp4" type="video/mp4">
-      </video>  
+      </video> 
     <!-- /Hero Section -->
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
         <div class="carousel-inner">    
@@ -352,19 +369,19 @@ $result = $conn->query($sql);
     </section><!-- /Skills Section -->
 
     <!-- currículum Section -->
-    <section id="resume" class="resume section light-background">
+    <section id="resume" class="resume section dark-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Currículum</h2>
+        <h2 style="color: white !important;">Currículum</h2>
         <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
       </div><!-- End Section Title -->
 
       
       <div class="container">
         <div class="row">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Historial Académico</h3>
+         <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title" style="color: white !important;">Historial Académico</h3>
 
           <div class="accordion" id="accordionExample">
             <div class="resume-item">
@@ -438,8 +455,8 @@ $result = $conn->query($sql);
         </div> 
          
         
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Experiencia Profesional</h3>
+          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="resume-title" style="color: white !important;">Experiencia Profesional</h3>
           
             <div class="accordion" id="accordionExample">
               <div class="resume-item">
@@ -1725,8 +1742,14 @@ $result = $conn->query($sql);
             </div>
           </div><!-- End Service Item -->
 
+          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
+            <div class="icon flex-shrink-0"><i class="bi bi-people"></i></div>
+            <div>
+              <h4 class="title"><a href="service-details.html" class="stretched-link">Dirección y gestión de procesos musicales</a></h4>
+              <p class="description">Creación y administración de programas de enseñanza musical adaptados a cada edad y nivel musical.</p>
+            </div>
+          </div><!-- End Service Item -->
         </div>
-
       </div>
 
     </section><!-- /Services Section -->

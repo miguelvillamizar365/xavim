@@ -1413,3 +1413,187 @@ main, section, .section, body {
 #resume a {
   color: #000 !important; /* fuerza a negro */
 }
+
+/* Base font size increases */
+body {
+    font-size: 16px; /* Increase from default 14px */
+    line-height: 1.6; /* Better readability */
+}
+
+/* Paragraph text */
+p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+}
+
+/* Navigation menu */
+#navmenu ul li a {
+    font-size: 16px;
+}
+
+/* Section titles */
+.section-title h2 {
+    font-size: 2.5rem; /* Larger section headings */
+}
+
+.section-title p {
+    font-size: 18px; /* Subtitle text */
+}
+
+/* About section content */
+.about .content p {
+    font-size: 17px;
+}
+
+.about .content ul li {
+    font-size: 16px;
+}
+
+/* Resume/CV section */
+.resume .resume-title {
+    font-size: 1.8rem;
+}
+
+.accordion-button {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.accordion-body {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.accordion-body ul li {
+    font-size: 15px;
+    margin-bottom: 0.5rem;
+}
+
+/* Services section */
+.services .service-item h4 {
+    font-size: 20px;
+}
+
+.services .service-item p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Contact section */
+.contact .info-item h3 {
+    font-size: 20px;
+}
+
+.contact .info-item p {
+    font-size: 16px;
+}
+
+/* Form labels and inputs */
+.contact form label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.contact form input,
+.contact form textarea {
+    font-size: 15px;
+}
+
+/* News section */
+.card-title {
+    font-size: 1.4rem;
+}
+
+.card-text {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.card-subtitle {
+    font-size: 14px;
+}
+
+/* Portfolio section */
+.portfolio-info h3,
+.portfolio-info h4 {
+    font-size: 16px;
+}
+
+/* Skills section */
+.skills .skill span {
+    font-size: 16px;
+}
+
+/* Testimonials */
+.testimonial-item p {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.testimonial-item h3 {
+    font-size: 18px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Maintain readability on mobile */
+    }
+    
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    p {
+        font-size: 16px;
+    }
+    
+    .accordion-button {
+        font-size: 15px;
+    }
+    
+    .services .service-item h4 {
+        font-size: 18px;
+    }
+}
+
+/* Better contrast for readability */
+body {
+    color: #333;
+}
+
+.dark-background {
+    color: #f8f9fa;
+}
+
+.dark-background p,
+.dark-background li {
+    color: #e9ecef;
+}
+
+/* Hide video on very small screens and use background image instead */
+@media (max-width: 480px) {
+    .video-background {
+        display: none;
+    }
+    
+    #hero {
+        background-image: url('assets/img/hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+}
+
+#hero {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+#hero .container {
+    position: relative;
+    z-index: 2;
+}
