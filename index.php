@@ -14,10 +14,10 @@ if ($conn->connect_error) {
 }
 
 // Query only published news, order by updated_at and created_at descending
-$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, Created_At, Updated_At
+$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, created_at, Updated_At
         FROM News
         WHERE IsPublished = 1
-        ORDER BY Updated_At DESC, Created_At DESC";
+        ORDER BY Updated_At DESC, created_at DESC";
 
 $result = $conn->query($sql);
 ?>
@@ -202,14 +202,6 @@ $result = $conn->query($sql);
             <img id="myPhotobanner1" src="assets/img/banner/banner1.jpg"  class="d-block w-100" alt="">
           </div>
         </div>
-        <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button> -->
       </div>    
 
     <!-- About Section -->
@@ -227,24 +219,19 @@ $result = $conn->query($sql);
             </div>
             <div class="col-lg-8 content">
               <h2>Enseñanza Musical &amp; Orquestación.</h2>
-              <p class="fst-italic py-3">
-                <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. -->
-              </p>
               <div class="row">
                 <div class="col-lg-6">
                   <ul>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Sitio Web:</strong> <span><a href="https://xavim.sytes.net:8001/" target="_blank">xavim.sytes.net</a></span></li>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Teléfono:</strong> <span>+57 310 3000124</span></li>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Ciudad:</strong> <span>Facatativá, Cundinamarca</span></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Sitio Web: <span><a href="http://xavim.sytes.net:8001/" target="_blank">xavim.sytes.net</a></span></p></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Teléfono: <span>+57 310 3000124</span></p></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Ciudad: <span>Facatativá, Cundinamarca</span></p></li>
                   </ul>
                 </div>
                 <div class="col-lg-6">
                   <ul>
-                    <!-- <li><i class="bi bi-chevron-right"></i> <strong>Edad:</strong> <span>30</span></li> -->
-                    <li><i class="bi bi-chevron-right"></i> <strong>Grado:</strong> <span>Master</span></li>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>xavimurillo7@gmail.com</span></li>
-                    <li><i class="bi bi-chevron-right"></i> <strong>Ocupación:</strong> <span>Disponible</span></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Grado: <span>Master</span> </p></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Email: <span>xavimurillo7@gmail.com</span></p></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Ocupación: <span>Disponible</span></p></li>
                   </ul>
                 </div>
               </div>
@@ -268,7 +255,7 @@ $result = $conn->query($sql);
             <div class="stats-item">
               <i class="bi bi-emoji-smile"></i>
               <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Happy Clients</strong> <span>consequuntur quae</span></p>
+              <p><strong>Clientes Satisfechos</strong> <span>que confían en nosotros</span></p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -276,7 +263,7 @@ $result = $conn->query($sql);
             <div class="stats-item">
               <i class="bi bi-journal-richtext"></i>
               <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> <span>adipisci atque cum quia aut</span></p>
+              <p><strong>Proyectos Realizados</strong> <span>con calidad y compromiso</span></p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -284,7 +271,7 @@ $result = $conn->query($sql);
             <div class="stats-item">
               <i class="bi bi-headset"></i>
               <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> <span>aut commodi quaerat</span></p>
+              <p><strong>Horas de Soporte</strong> <span>siempre disponibles para ti</span></p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -292,14 +279,11 @@ $result = $conn->query($sql);
             <div class="stats-item">
               <i class="bi bi-people"></i>
               <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hard Workers</strong> <span>rerum asperiores dolor</span></p>
+              <p><strong>Colaboradores</strong> <span>dedicados y apasionados</span></p>
             </div>
           </div><!-- End Stats Item -->
-
         </div>
-
       </div>
-
     </section><!-- /Stats Section -->
 
     <!-- Skills Section -->
@@ -742,57 +726,96 @@ $result = $conn->query($sql);
         </div>
       </div>
     </section><!-- /Resume Section -->
-
-  <!-- Trigger Button -->
-
-
-    <!-- News Section -->
-    <section id="news" class="news section gray-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+    
+<!-- Enhanced News Section HTML -->
+<section id="news" class="news section gray-background">
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
         <h2>Noticias</h2>
-      </div><!-- End Section Title -->
+        <p>Últimas novedades y actualizaciones sobre proyectos musicales y presentaciones</p>
+    </div>
 
-      <div class="container">
+    <div class="container">
+        <div class="news-card-container">
+            <?php if ($result && $result->num_rows > 0): ?>
+                <?php while($row = $result->fetch_assoc()): ?>
+                    <article class="news-card" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Card Image -->
+                        <div class="news-card-image">
+                            <?php if (!empty($row['ImageUrl'])): ?>
+                                <img src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                     alt="<?php echo htmlspecialchars($row['Title']); ?>"
+                                     loading="lazy"
+                                     onload="this.parentElement.classList.remove('loading')"
+                                     onerror="this.src='assets/img/news-placeholder.jpg'">
+                            <?php else: ?>
+                                <img src="assets/img/news-placeholder.jpg" 
+                                     alt="Imagen de noticia predeterminada">
+                            <?php endif; ?>
+                        </div>
 
-      <div class="container py-5">
-          <h1 class="mb-4 text-center">Noticias Publicadas</h1>
+                        <!-- Card Content -->
+                        <div class="news-card-content">
+                            <!-- Category Badge -->
+                            <span class="news-card-category">
+                                <?php echo !empty($row['Category']) ? htmlspecialchars($row['Category']) : 'General'; ?>
+                            </span>
 
-          <?php if ($result && $result->num_rows > 0): ?>
-              <?php while($row = $result->fetch_assoc()): ?>
-                  <div class="card mb-4 shadow-sm">
-                      <?php if (!empty($row['ImageUrl'])): ?>
-                          <img src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
-                              class="card-img-top img-fluid" 
-                              alt="<?php echo htmlspecialchars($row['Title']); ?>">
-                      <?php endif; ?>
+                            <!-- Title -->
+                            <h3 class="news-card-title">
+                                <?php echo htmlspecialchars($row['Title']); ?>
+                            </h3>
 
-                      <div class="card-body">
-                          <h5 class="card-title">
-                              <?php echo htmlspecialchars($row['Title']); ?>
-                          </h5>
-                          <p class="card-subtitle mb-2 text-muted">
-                              <?php echo htmlspecialchars($row['Author']); ?> • 
-                              <?php echo date("d/m/Y H:i", strtotime($row['CreatedAt'])); ?>
-                          </p>
-                          <p class="card-text">
-                              <?php echo nl2br(htmlspecialchars(substr($row['Content'], 0, 300))); ?>...
-                          </p>
-                          <a href="show_news.php?id=<?php echo $row['NewsId']; ?>" class="btn btn-primary">
-                              Leer más →
-                          </a>
-                      </div>
-                  </div>
-              <?php endwhile; ?>
-          <?php else: ?>
-              <div class="alert alert-info">No hay noticias publicadas.</div>
-          <?php endif; ?>
-      </div>
+                            <!-- Meta Information -->
+                            <div class="news-card-meta">
+                                <div class="news-card-author">
+                                    <?php echo htmlspecialchars($row['Author']); ?>
+                                </div>
+                                <div class="news-card-date">
+                                    <?php echo date("d M Y", strtotime($row['created_at'])); ?>
+                                </div>
+                            </div>
 
-      </div>
-    </section><!-- /news Section -->
+                            <!-- Excerpt -->
+                            <p class="news-card-excerpt">
+                                <?php 
+                                    $excerpt = strip_tags($row['Content']);
+                                    echo htmlspecialchars(mb_substr($excerpt, 0, 150)) . '...';
+                                ?>
+                            </p>
 
+                            <!-- Actions -->
+                            <div class="news-card-actions">                                
+                                <a class="newsViewer" href="<?php echo $row['ImageUrl']; ?>" data-bs-toggle="modal" data-bs-target="#newsModal" class="news-card-btn"> 
+                                  <i class="bi bi-play"></i>
+                                  Leer más
+                                </a>
+                                
+                                <div class="news-card-stats">
+                                    <div class="news-card-stat">
+                                        <span>👁</span>
+                                        <span>124</span>
+                                    </div>
+                                    <div class="news-card-stat">
+                                        <span>💬</span>
+                                        <span>5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <!-- Empty State -->
+                <div class="news-empty-state">
+                    <div class="news-empty-icon">📰</div>
+                    <h3>No hay noticias disponibles</h3>
+                    <p>Pronto habrá contenido nuevo disponible</p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
   <!-- JavaScript to Autoplay and Stop Video -->
 
     <!-- Portfolio Section -->
@@ -1810,58 +1833,7 @@ $result = $conn->query($sql);
               </div>
             </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
+            
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -2011,6 +1983,35 @@ $result = $conn->query($sql);
   </div>
 </div>
 
+
+<!-- Modal Structure -->
+<div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newsModalLabel">Visor de Noticias</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="ratio ratio-16x9">
+        <div class="mfp-iframe-scaler">
+          <div class="mfp-close"></div>
+          <iframe id="newsFrame"
+                  width="560" 
+                  height="315" 
+                  src="" 
+                  title="YouTube video player" 
+                  frameborder="0"
+                  allow="autoplay;" 
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen>
+              </iframe>
+            </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- Vendor JS Files -->
    
   <script src="assets/js/jquery-1.12.4.min.js"></script>

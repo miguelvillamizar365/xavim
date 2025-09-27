@@ -41,9 +41,7 @@ class PHP_Email_Form {
     $headers = 'From: ' . $this->from_name . ' <' . $this->from_email . '>' . "\r\n" .
                'Reply-To: ' . $this->from_email . "\r\n" .
                'X-Mailer: PHP/' . phpversion();
-
-   // return mail($this->to, $this->subject, $message_body, $headers);
-
+    $message_body .= $headers;
         
     try {
         // Server settings  
@@ -56,7 +54,7 @@ class PHP_Email_Form {
         $this->mail->Port       = 587;
 
         // Recipients
-        $this->mail->setFrom($this->from_name, 'Web Page Xavi.m');
+        $this->mail->setFrom($this->from_email, 'Web Page Xavi.m');
         $this->mail->addAddress($this->to);
 
         // Content
@@ -65,9 +63,9 @@ class PHP_Email_Form {
         $this->mail->Body    = $message_body;
 
         $this->mail->send();
-        echo 'Message has been sent!';
+        echo 'El mensaje ha sido enviado!';
     } catch (Exception $e) {
-        echo "Message could not be sent. Error: {$this->mail->ErrorInfo}";
+        echo "El mensaje no ha posido ser enviado. Error: {$this->mail->ErrorInfo}";
     }
   }
 }

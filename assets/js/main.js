@@ -18,28 +18,18 @@ for (let i = 0; i < links.length; i++) {
     });
   }
   
-  $('.popup-video').magnificPopup({
-  type: 'iframe',
-  iframe: {
-    patterns: {
-      youtube: {
-        index: 'youtube.com/',
-        id: function(url) {
-          const match = url.match(/[\\?\\&]v=([^\\?\\&]+)/);
-          console.log(match && match[1] ? match[1] : null);
-          return match && match[1] ? match[1] : null;
-        },
-        src: 'https://www.youtube.com/embed/%id%?autoplay=1'
-      }
-    },
-    markup: '<div class="mfp-iframe-scaler">' +
-              '<div class="mfp-close"></div>' +
-              '<iframe class="mfp-iframe" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>' +
-            '</div>'
+
+  
+const newsViewer = document.getElementsByClassName('newsViewer');
+for (let i = 0; i < newsViewer.length; i++) {
+    newsViewer[i].addEventListener('click', function(event) {
+      const clickedUrl = event.target.href;
+      const newsFrame = document.getElementById('newsFrame');
+      newsFrame.src = clickedUrl;
+    });
   }
-});
-
-
+  
+  
   /**
    * Header toggle
    */
@@ -366,5 +356,46 @@ for (let i = 0; i < links.length; i++) {
       videoFrame.src = '';
     });
   
+    document.addEventListener('DOMContentLoaded', function() {
+    // Add loading class to images initially
+    document.querySelectorAll('.news-card-image').forEach(function(imageContainer) {
+        imageContainer.classList.add('loading');
+    });
+
+    // Lazy loading animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'slideInUp 0.6s ease forwards';
+            }
+        });
+    }, observerOptions);
+
+    // Observe all news cards
+    document.querySelectorAll('.news-card').forEach(function(card) {
+        observer.observe(card);
+    });
+});
+
+// Add slide-in animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(style);
 })();
 

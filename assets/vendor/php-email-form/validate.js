@@ -34,6 +34,8 @@
               grecaptcha.execute(recaptcha, {action: 'php_email_form_submit'})
               .then(token => {
                 formData.set('recaptcha-response', token);
+                console.log("formData");
+                console.log(formData);
                 php_email_form_submit(thisForm, action, formData);
               })
             } catch(error) {
@@ -67,6 +69,8 @@
       if (data.trim() == 'OK') {
         thisForm.querySelector('.sent-message').classList.add('d-block');
         thisForm.reset(); 
+        console.log("Entra Ok");
+
       } else {
         throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action); 
       }
@@ -77,9 +81,16 @@
   }
 
   function displayError(thisForm, error) {
-    thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.error-message').innerHTML = error;
-    thisForm.querySelector('.error-message').classList.add('d-block');
+    if(error == "Error: El mensaje ha sido enviado!")
+    {
+        thisForm.querySelector('.sent-message').classList.add('d-block');
+    }
+    else
+    {
+      thisForm.querySelector('.loading').classList.remove('d-block');
+      thisForm.querySelector('.error-message').innerHTML = error;
+      thisForm.querySelector('.error-message').classList.add('d-block');
+    }
   }
 
 })();
