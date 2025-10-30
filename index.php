@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // Query only published news, order by updated_at and created_at descending
 $sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, created_at, Updated_At
-        FROM News
+        FROM news
         WHERE IsPublished = 1
         ORDER BY Updated_At DESC, created_at DESC";
 
@@ -73,9 +73,12 @@ $result = $conn->query($sql);
   <link href="assets/vendor/slick.css" rel="stylesheet">
   <link href="assets/vendor/style.css" rel="stylesheet">
 
+
   
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   <!-- Main CSS File -->
+  <link href="assets/css/cardsnews.css" rel="stylesheet">
+  <link href="assets/css/fixvideo.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
 
 
@@ -132,23 +135,6 @@ $result = $conn->query($sql);
         <li><a href="#news"><i class="bi bi-file-earmark-text navicon"></i> Noticias</a></li>
         <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
         <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Servicios</a></li>
-        <!-- <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-          <ul>
-            <li><a href="#">Dropdown 1</a></li>
-            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Deep Dropdown 1</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-                <li><a href="#">Deep Dropdown 4</a></li>
-                <li><a href="#">Deep Dropdown 5</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 4</a></li>
-          </ul>
-        </li> -->
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contacto</a></li>
       </ul>
     </nav>
@@ -159,7 +145,7 @@ $result = $conn->query($sql);
 
     <!-- Hero Section -->
    
-    <section id="hero" class="hero section dark-background" style="position: absolute !important; text-align: center;">
+    <section id="hero" class="dark-background" style="position: absolute !important; text-align: center;">
       <!-- <img id="myPhoto"  class="my-image" src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class=""> -->
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <h2 class="font-xavimurillo">Xavi Murillo</h2>
@@ -167,10 +153,19 @@ $result = $conn->query($sql);
           </span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
       </div>
     </section>
-      <!-- Video Background -->
-        <video autoplay muted loop playsinline class="video-background">
-        <source src="assets/videos/Max_Richter_TheDeparture.mp4" type="video/mp4">
-      </video> 
+    <div class="mobile-video-container">
+        <video 
+            id="html5Video"
+            class="w-100 h-100" 
+            playsinline
+            autoplay 
+            muted
+            loop>
+            <source src="assets/videos/Max_Richter_TheDeparture.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+      
     <!-- /Hero Section -->
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
         <div class="carousel-inner">    
@@ -222,7 +217,7 @@ $result = $conn->query($sql);
               <div class="row">
                 <div class="col-lg-6">
                   <ul>
-                    <li><p><i class="bi bi-chevron-right"></i> Sitio Web: <span><a href="http://xavim.sytes.net:8001/" target="_blank">xavim.sytes.net</a></span></p></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Sitio Web: <span><a href="https://xavim.com.co/" target="_blank">xavim.com.co</a></span></p></li>
                     <li><p><i class="bi bi-chevron-right"></i> Teléfono: <span>+57 310 3000124</span></p></li>
                     <li><p><i class="bi bi-chevron-right"></i> Ciudad: <span>Facatativá, Cundinamarca</span></p></li>
                   </ul>
@@ -735,86 +730,137 @@ $result = $conn->query($sql);
         <p>Últimas novedades y actualizaciones sobre proyectos musicales y presentaciones</p>
     </div>
 
-    <div class="container">
-        <div class="news-card-container">
-            <?php if ($result && $result->num_rows > 0): ?>
-                <?php while($row = $result->fetch_assoc()): ?>
-                    <article class="news-card" data-aos="fade-up" data-aos-delay="100">
-                        <!-- Card Image -->
-                        <div class="news-card-image">
-                            <?php if (!empty($row['ImageUrl'])): ?>
-                                <img src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
-                                     alt="<?php echo htmlspecialchars($row['Title']); ?>"
-                                     loading="lazy"
-                                     onload="this.parentElement.classList.remove('loading')"
-                                     onerror="this.src='assets/img/news-placeholder.jpg'">
-                            <?php else: ?>
-                                <img src="assets/img/news-placeholder.jpg" 
-                                     alt="Imagen de noticia predeterminada">
-                            <?php endif; ?>
-                        </div>
-
-                        <!-- Card Content -->
-                        <div class="news-card-content">
-                            <!-- Category Badge -->
-                            <span class="news-card-category">
-                                <?php echo !empty($row['Category']) ? htmlspecialchars($row['Category']) : 'General'; ?>
-                            </span>
-
-                            <!-- Title -->
-                            <h3 class="news-card-title">
-                                <?php echo htmlspecialchars($row['Title']); ?>
-                            </h3>
-
-                            <!-- Meta Information -->
-                            <div class="news-card-meta">
-                                <div class="news-card-author">
-                                    <?php echo htmlspecialchars($row['Author']); ?>
-                                </div>
-                                <div class="news-card-date">
-                                    <?php echo date("d M Y", strtotime($row['created_at'])); ?>
-                                </div>
-                            </div>
-
-                            <!-- Excerpt -->
-                            <p class="news-card-excerpt">
-                                <?php 
-                                    $excerpt = strip_tags($row['Content']);
-                                    echo htmlspecialchars(mb_substr($excerpt, 0, 150)) . '...';
-                                ?>
-                            </p>
-
-                            <!-- Actions -->
-                            <div class="news-card-actions">                                
-                                <a class="newsViewer" href="<?php echo $row['ImageUrl']; ?>" data-bs-toggle="modal" data-bs-target="#newsModal" class="news-card-btn"> 
-                                  <i class="bi bi-play"></i>
-                                  Leer más
-                                </a>
-                                
-                                <div class="news-card-stats">
-                                    <div class="news-card-stat">
-                                        <span>👁</span>
-                                        <span>124</span>
-                                    </div>
-                                    <div class="news-card-stat">
-                                        <span>💬</span>
-                                        <span>5</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <!-- Empty State -->
-                <div class="news-empty-state">
-                    <div class="news-empty-icon">📰</div>
-                    <h3>No hay noticias disponibles</h3>
-                    <p>Pronto habrá contenido nuevo disponible</p>
+     <div class="container">
+        <?php if ($result && $result->num_rows > 0): ?>
+            <!-- Bootstrap Carousel -->
+            <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicators -->
+                <div class="carousel-indicators">
+                    <?php 
+                    $indicatorIndex = 0;
+                    mysqli_data_seek($result, 0); // Reset pointer
+                    while($row = $result->fetch_assoc()): 
+                    ?>
+                        <button type="button" 
+                                data-bs-target="#newsCarousel" 
+                                data-bs-slide-to="<?php echo $indicatorIndex; ?>" 
+                                <?php echo $indicatorIndex === 0 ? 'class="active" aria-current="true"' : ''; ?>
+                                aria-label="Slide <?php echo $indicatorIndex + 1; ?>">
+                        </button>
+                    <?php 
+                        $indicatorIndex++;
+                    endwhile; 
+                    ?>
                 </div>
-            <?php endif; ?>
-        </div>
+
+                <!-- Carousel Items -->
+                <div class="carousel-inner">
+                    <?php 
+                    $itemIndex = 0;
+                    mysqli_data_seek($result, 0); // Reset pointer again
+                    while($row = $result->fetch_assoc()): 
+                    ?>
+                        <div class="carousel-item <?php echo $itemIndex === 0 ? 'active' : ''; ?>" >
+                            <div class="news-card-container">
+                                <article class="news-card" data-aos="fade-up">
+                                    <!-- Card Image -->
+                                    <div class="news-card-image">
+                                        <?php if (!empty($row['ImageUrl'])): ?>
+                                            <img id="myNewsBanner <?php echo $itemIndex; ?>" src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                                alt="<?php echo htmlspecialchars($row['Title']); ?>"
+                                                loading="lazy"
+                                                onload="this.parentElement.classList.remove('loading')"
+                                                onerror="this.src='assets/img/news-placeholder.jpg'">
+                                        <?php else: ?>
+                                            <img id="myNewsBanner <?php echo $itemIndex; ?>" 
+                                                src="assets/img/news-placeholder.jpg" 
+                                                class="d-block w-100"
+                                                alt="Imagen de noticia predeterminada">
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <!-- Card Content -->
+                                    <div class="news-card-content">
+                                        <!-- Category Badge -->
+                                        <span class="news-card-category">
+                                            <?php echo !empty($row['Category']) ? htmlspecialchars($row['Category']) : 'General'; ?>
+                                        </span>
+
+                                        <!-- Title -->
+                                        <h3 class="news-card-title">
+                                            <?php echo htmlspecialchars($row['Title']); ?>
+                                        </h3>
+
+                                        <!-- Meta Information -->
+                                        <div class="news-card-meta">
+                                            <div class="news-card-author">
+                                                <?php echo htmlspecialchars($row['Author']); ?>
+                                            </div>
+                                            <div class="news-card-date">
+                                                <?php echo date("d M Y", strtotime($row['created_at'])); ?>
+                                            </div>
+                                        </div>
+
+                                        <!-- Excerpt -->
+                                        <p class="news-card-excerpt">
+                                            <?php 
+                                                $excerpt = strip_tags($row['Content']);
+                                                echo htmlspecialchars(mb_substr($excerpt, 0, 150)) . '...';
+                                            ?>
+                                        </p>
+
+                                        <!-- Actions -->
+                                        <div class="news-card-actions">                                
+                                            <a class="newsViewer news-card-btn" 
+                                              href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                              data-bs-toggle="modal" 
+                                              data-bs-target="#newsModal"> 
+                                                <i class="bi bi-play"></i>
+                                                Leer más
+                                            </a>
+                                            
+                                            <div class="news-card-stats">
+                                                <div class="news-card-stat">
+                                                    <span>👁</span>
+                                                    <span>124</span>
+                                                </div>
+                                                <div class="news-card-stat">
+                                                    <span>💬</span>
+                                                    <span>5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    <?php 
+                        $itemIndex++;
+                    endwhile; 
+                    ?>
+                </div>
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+        <?php else: ?>
+            <!-- Empty State -->
+            <div class="news-empty-state">
+                <div class="news-empty-icon">📰</div>
+                <h3>No hay noticias disponibles</h3>
+                <p>Pronto habrá contenido nuevo disponible</p>
+            </div>
+        <?php endif; ?>
     </div>
+
 </section>
   <!-- JavaScript to Autoplay and Stop Video -->
 
@@ -1495,22 +1541,22 @@ $result = $conn->query($sql);
             
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/direct_process_music/foto1.jpeg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/direct_process_music/Foto1.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
                   <h4>Direccion de procesos musicales</h4>
                   <p>Soy Semilla (Nashville, EE. UU.)</p>
-                  <a href="assets/img/portfolio/direct_process_music/foto1.jpeg" title="Soy Semilla (Nashville, EE. UU.)" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/portfolio/direct_process_music/Foto1.jpeg" title="Soy Semilla (Nashville, EE. UU.)" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 </div>
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/direct_process_music/foto2.jpeg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/direct_process_music/Foto2.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
                   <h4>Direccion de procesos musicales</h4>
                   <p>Soy Semilla (Nashville, EE. UU.)</p>
-                  <a href="assets/img/portfolio/direct_process_music/foto2.jpeg" title="Soy Semilla (Nashville, EE. UU.)" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="assets/img/portfolio/direct_process_music/Foto2.jpeg" title="Soy Semilla (Nashville, EE. UU.)" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 </div>
               </div>
             </div>
@@ -1712,7 +1758,7 @@ $result = $conn->query($sql);
             <div class="icon flex-shrink-0"><i class="bi bi-book"></i></div>
             <div>
               <h4 class="title"><a href="service-details.html" class="stretched-link">Enseñanza Musical</a></h4>
-              <p class="description">Clases de piano, teclado, teoría musical y estimulación musical para todas las edades, de nivel básico a avanzado.</p>
+              <p class="description">Clases de piano, teclado, teoría musical, estimulación musical, clases de armonía moderna, producción musical y entrenamiento auditivo para todas las edades, de nivel básico a avanzado.</p>
             </div>
           </div>
           <!-- End Service Item -->
