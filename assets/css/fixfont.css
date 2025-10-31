@@ -1,0 +1,38 @@
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero h2.font-xavimurillo {
+  font-family: 'Great Vibes', cursive !important;
+  font-size: 4rem !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+}
+
+.hero p.font-xavimurillo {
+  font-family: var(--font-headings) !important;
+  font-size: 1.8rem !important;
+  font-weight: var(--fw-normal) !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Text styling for better visibility at bottom */
+#hero .font-xavimurillo {
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+    margin-bottom: 1rem !important;
+}
+
+#hero h2.font-xavimurillo {
+    font-size: 3rem !important;
+    font-weight: bold !important;
+}
+
+#hero p.font-xavimurillo {
+    font-size: 1.5rem !important;
+    margin-bottom: 0 !important;
+} 
+
+#hero .font-xavimurillo{
+  font-family: "Great Vibes", cursive !important;
+}

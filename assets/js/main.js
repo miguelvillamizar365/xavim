@@ -397,5 +397,114 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+            const video = $('#html5Video')[0];
+            const playOverlay = $('#playOverlay');
+            const loading = $('#loading');
+            const statusMessage = $('#statusMessage');
+
+            // Function to show status message
+            function showStatus(message, duration = 2000) {
+                statusMessage.text(message).fadeIn();
+                setTimeout(() => {
+                    statusMessage.fadeOut();
+                }, duration);
+            }
+
+            // Function to attempt autoplay
+            function attemptAutoplay() {
+                const playPromise = video.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Autoplay successful
+                        console.log('Video autoplay successful');
+                        playOverlay.addClass('hidden');
+                        loading.hide();
+                        showStatus('Video playing');
+                    }).catch((error) => {
+                        // Autoplay failed - show play button
+                        console.log('Autoplay prevented:', error);
+                        playOverlay.removeClass('hidden');
+                        loading.hide();
+                        showStatus('Tap to play video', 3000);
+                    });
+                }
+            }
+
+            // Video loaded - hide loading
+            video.addEventListener('loadeddata', function() {
+                loading.hide();
+                console.log('Video loaded');
+            });
+
+            // Video can play through
+            video.addEventListener('canplaythrough', function() {
+                console.log('Video can play through');
+                attemptAutoplay();
+            });
+
+            // Video started playing
+            video.addEventListener('playing', function() {
+                playOverlay.addClass('hidden');
+                console.log('Video is playing');
+            });
+
+            // Video paused
+            video.addEventListener('pause', function() {
+                console.log('Video paused');
+            });
+
+            // Click on overlay to play
+            playOverlay.on('click', function() {
+                video.play();
+                $(this).addClass('hidden');
+                showStatus('Playing...');
+            });
+
+            // Try to play on page load
+            $(window).on('load', function() {
+                attemptAutoplay();
+            });
+
+            // iOS specific: Try to play on any user interaction
+            let hasInteracted = false;
+            $(document).one('touchstart click', function() {
+                if (!hasInteracted) {
+                    hasInteracted = true;
+                    if (video.paused) {
+                        attemptAutoplay();
+                    }
+                }
+            });
+
+            // Prevent video from stopping on page visibility change
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden && video.paused) {
+                    video.play();
+                }
+            });
+
+            // iOS: Resume video on page focus
+            $(window).on('focus', function() {
+                if (video.paused) {
+                    video.play();
+                }
+            });
+
+            // Intersection Observer for autoplay when in viewport (iOS Safari)
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (video.paused) {
+                                attemptAutoplay();
+                            }
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(video);
+            }
 })();
 

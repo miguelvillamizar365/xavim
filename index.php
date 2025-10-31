@@ -1,10 +1,12 @@
 
 <?php
 // Database connection
-$host = "127.0.0.1";       // or your server host
-$user = "root";            // your MySQL username
-$pass = "";                // your MySQL password
-$db   = "xavim_app";       // your database name
+$host = "127.0.0.1";       		  // or your server host
+$user = "root"; // your MySQL username
+$pass = "";         // your MySQL password
+$db   = "xavim_app";         // your database name
+
+
 
 $conn = new mysqli($host, $user, $pass, $db);
 
@@ -79,6 +81,7 @@ $result = $conn->query($sql);
   <!-- Main CSS File -->
   <link href="assets/css/cardsnews.css" rel="stylesheet">
   <link href="assets/css/fixvideo.css" rel="stylesheet">
+  <link href="assets/css/fixfont.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
 
 
@@ -90,20 +93,7 @@ $result = $conn->query($sql);
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <!-- Your existing head content -->
-  
-  <style>
-    /* Custom font size improvements */
-    body { font-size: 16px !important; }
-    p { font-size: 16px !important; line-height: 1.7 !important; }
-    .card-text { font-size: 16px !important; }
-    .accordion-body { font-size: 15px !important; }
-    .service-item p { font-size: 16px !important; }
-    
-    @media (max-width: 768px) {
-      body { font-size: 16px !important; }
-      p { font-size: 16px !important; }
-    }
-  </style>
+
 </head>
 
 <body class="index-page">
@@ -145,7 +135,7 @@ $result = $conn->query($sql);
 
     <!-- Hero Section -->
    
-    <section id="hero" class="dark-background" style="position: absolute !important; text-align: center;">
+    <section id="hero" class="dark-background" style="position: absolute !important; text-align: center">
       <!-- <img id="myPhoto"  class="my-image" src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class=""> -->
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <h2 class="font-xavimurillo">Xavi Murillo</h2>
@@ -153,6 +143,7 @@ $result = $conn->query($sql);
           </span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
       </div>
     </section>
+    
     <div class="mobile-video-container">
         <video 
             id="html5Video"
@@ -160,11 +151,19 @@ $result = $conn->query($sql);
             playsinline
             autoplay 
             muted
-            loop>
+            loop 
+            preload="auto"
+            webkit-playsinline="true"
+            x-webkit-airplay="allow">
             <source src="assets/videos/Max_Richter_TheDeparture.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-    </div>
+    
+        <!-- Fallback play button overlay -->
+        <div class="play-overlay" id="playOverlay">
+            <div class="play-button"></div>
+        </div>
+      </div>
       
     <!-- /Hero Section -->
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
@@ -226,7 +225,6 @@ $result = $conn->query($sql);
                   <ul>
                     <li><p><i class="bi bi-chevron-right"></i> Grado: <span>Master</span> </p></li>
                     <li><p><i class="bi bi-chevron-right"></i> Email: <span>xavimurillo7@gmail.com</span></p></li>
-                    <li><p><i class="bi bi-chevron-right"></i> Ocupación: <span>Disponible</span></p></li>
                   </ul>
                 </div>
               </div>
@@ -878,19 +876,21 @@ $result = $conn->query($sql);
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter=".filter-productions" class="filter-active">Producciones</li>
+            <li data-filter=".filter-all" class="filter-active">Trabajos</li>
+            <li data-filter=".filter-collaborations">Colaboraciones</li>
             <li data-filter=".filter-videodanza">Música video danza</li>
             <li data-filter=".filter-musica_orquestal">Música orquestal</li>
             <li data-filter=".filter-musica_cine">Música para cine</li>
             <li data-filter=".filter-musica_electro_acustica">Música electro acústica</li>
-            <li data-filter=".filter-direccion_procesos_musicales">Dirección de procesos musicales</li> 
+            <li data-filter=".filter-direccion_procesos_musicales">Dirección de procesos musicales</li>
+            <li data-filter=".filter-productions">Producciones</li> 
           </ul><!-- End Portfolio Filters -->
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
             
 
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -919,7 +919,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_orquestal">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_orquestal filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -948,7 +948,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -977,7 +977,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_orquestal">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1006,7 +1006,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_cine">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_cine filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1036,7 +1036,7 @@ $result = $conn->query($sql);
             </div>
             
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_orquestal">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1066,7 +1066,7 @@ $result = $conn->query($sql);
             </div>
 
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1096,7 +1096,7 @@ $result = $conn->query($sql);
             </div>
             
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-all filter-productions">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1125,7 +1125,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_cine">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_cine filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1157,7 +1157,7 @@ $result = $conn->query($sql);
 
 
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_electro_acustica">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item .filter-collaborations filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1186,7 +1186,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_electro_acustica">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item .filter-collaborations filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1216,7 +1216,7 @@ $result = $conn->query($sql);
             </div>
             
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_electro_acustica">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item .filter-collaborations filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1245,7 +1245,7 @@ $result = $conn->query($sql);
               </div>
             </div>
                        
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1274,7 +1274,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_orquestal">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1304,7 +1304,7 @@ $result = $conn->query($sql);
             </div>
             
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_orquestal">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-collaborations filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1334,7 +1334,7 @@ $result = $conn->query($sql);
             </div>
             
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_electro_acustica">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-musica_electro_acustica filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1363,7 +1363,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-videodanza">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-videodanza filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1393,7 +1393,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1422,7 +1422,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1451,7 +1451,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app filter-productions filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1480,7 +1480,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-collaborations filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1509,7 +1509,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-productions">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-collaborations filter-all">
               <div class="portfolio-content h-100">
                 <div class="youtube_video_area">
                     <div class="container-fluid p-0">
@@ -1539,7 +1539,7 @@ $result = $conn->query($sql);
             </div>
             
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/Foto1.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1550,7 +1550,7 @@ $result = $conn->query($sql);
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/Foto2.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1562,7 +1562,7 @@ $result = $conn->query($sql);
             </div>
             
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto5.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1574,7 +1574,7 @@ $result = $conn->query($sql);
             </div>
             
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto6.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1585,7 +1585,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto8.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1596,7 +1596,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto9.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1607,7 +1607,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto11.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1619,7 +1619,7 @@ $result = $conn->query($sql);
             </div>
             
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto13.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1630,7 +1630,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto14.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1641,7 +1641,7 @@ $result = $conn->query($sql);
               </div>
             </div>
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto16.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1653,7 +1653,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto17.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1665,7 +1665,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto19.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1677,7 +1677,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto20.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1689,7 +1689,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto22.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1701,7 +1701,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto27.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1713,7 +1713,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto25.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1725,7 +1725,7 @@ $result = $conn->query($sql);
             </div>
 
             
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-direccion_procesos_musicales filter-all">
               <div class="portfolio-content h-100">
                 <img src="assets/img/portfolio/direct_process_music/foto30.jpeg" class="img-fluid" alt="">
                 <div class="portfolio-info">
@@ -1757,7 +1757,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
             <div class="icon flex-shrink-0"><i class="bi bi-book"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Enseñanza Musical</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Enseñanza Musical</a></h4>
               <p class="description">Clases de piano, teclado, teoría musical, estimulación musical, clases de armonía moderna, producción musical y entrenamiento auditivo para todas las edades, de nivel básico a avanzado.</p>
             </div>
           </div>
@@ -1766,7 +1766,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
             <div class="icon flex-shrink-0"><i class="bi bi-music-note-beamed"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Música en vivo para bodas y eventos</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Música en vivo para bodas y eventos</a></h4>
               <p class="description">Acompañamiento musical personalizado en ceremonias, recepciones y celebraciones, creando un ambiente único con piano y teclados.</p>
             </div>
           </div><!-- End Service Item -->
@@ -1774,7 +1774,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
             <div class="icon flex-shrink-0"><i class="bi bi-sliders"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Producción Musical Profesional</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Producción Musical Profesional</a></h4>
               <p class="description">Arreglos, mezcla, masterización y dirección musical para proyectos individuales o de bandas.</p>
             </div>
           </div><!-- End Service Item -->
@@ -1782,7 +1782,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
             <div class="icon flex-shrink-0"><i class="bi bi-music-note-list"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Composición Original</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Composición Original</a></h4>
               <p class="description">Música a la medida para cine, cortometrajes, teatro, danza y proyectos audiovisuales.</p>
             </div>
           </div><!-- End Service Item -->
@@ -1790,7 +1790,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="500">
             <div class="icon flex-shrink-0"><i class="bi bi-broadcast"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Orquestación y Dirección Musical</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Orquestación y Dirección Musical</a></h4>
               <p class="description">Creación y dirección de arreglos orquestales y corales para conciertos, grabaciones y espectáculos.</p>
             </div>
           </div><!-- End Service Item -->
@@ -1798,7 +1798,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
             <div class="icon flex-shrink-0"><i class="bi bi-keyboard"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Interpretación de Piano y Teclados</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Interpretación de Piano y Teclados</a></h4>
               <p class="description">Presentaciones como pianista solista o acompañante, en géneros que van desde el jazz hasta la música académica y popular.</p>
             </div>
           </div><!-- End Service Item -->
@@ -1806,7 +1806,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
             <div class="icon flex-shrink-0"><i class="bi bi-people"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Colaboraciones Artísticas</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Colaboraciones Artísticas</a></h4>
               <p class="description">Participación como teclista, arreglista o productor en proyectos musicales nacionales e internacionales.</p>
             </div>
           </div><!-- End Service Item -->
@@ -1814,7 +1814,7 @@ $result = $conn->query($sql);
           <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
             <div class="icon flex-shrink-0"><i class="bi bi-people"></i></div>
             <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Dirección y gestión de procesos musicales</a></h4>
+              <h4 class="title"><a href="#" class="stretched-link">Dirección y gestión de procesos musicales</a></h4>
               <p class="description">Creación y administración de programas de enseñanza musical adaptados a cada edad y nivel musical.</p>
             </div>
           </div><!-- End Service Item -->

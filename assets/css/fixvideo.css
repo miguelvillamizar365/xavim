@@ -9,6 +9,7 @@
   /* Make video fill entire screen on mobile */
   .mobile-video-container .ratio {
       height: 100%;
+      width: 50%;
   }
 
   .mobile-video-container iframe,
@@ -22,19 +23,19 @@
   @media (min-width: 768px) {
       .mobile-video-container {
           height: auto;
-          padding: 20px;
+          padding: 2px;
           background: #000000;
       }
 
       .mobile-video-container .ratio {
           height: auto;
-          max-width: 1200px;
+          max-width: 50%;
           margin: 0 auto;
       }
 
       .mobile-video-container iframe,
       .mobile-video-container video {
-          object-fit: contain;
+          object-fit: fill;
       }
   }
 
