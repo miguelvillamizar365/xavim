@@ -19,6 +19,33 @@
       object-fit: cover;
   }
 
+  #newsFrame {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 0.375rem;
+  }
+
+  .news-modal-copy {
+      background: transparent;
+      text-align: center;
+  }
+
+  .news-modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+  }
+
+  .news-modal-excerpt {
+      margin-bottom: 0;
+      color: #666;
+      line-height: 1.6;
+  }
+
   /* For desktop: add some padding */
   @media (min-width: 768px) {
       .mobile-video-container {

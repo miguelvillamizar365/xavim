@@ -763,12 +763,19 @@ $result = $conn->query($sql);
                                 <article class="news-card" data-aos="fade-up">
                                     <!-- Card Image -->
                                     <div class="news-card-image">
-                                        <?php if (!empty($row['ImageUrl'])): ?>
-                                            <img id="myNewsBanner <?php echo $itemIndex; ?>" src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
-                                                alt="<?php echo htmlspecialchars($row['Title']); ?>"
-                                                loading="lazy"
-                                                onload="this.parentElement.classList.remove('loading')"
-                                                onerror="this.src='assets/img/news-placeholder.jpg'">
+                                        <?php if (!empty($row['ImageUrl'])): ?>                               
+                                            <a  class="newsViewer"  
+                                               href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                               data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
+                                               data-excerpt="<?php echo htmlspecialchars($excerptTruncated, ENT_QUOTES); ?>"
+                                               data-bs-toggle="modal" 
+                                               data-bs-target="#newsModal">
+                                               <img id="myNewsBanner <?php echo $itemIndex; ?>" src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                                    alt="<?php echo htmlspecialchars($row['Title']); ?>"
+                                                    loading="lazy"
+                                                    onload="this.parentElement.classList.remove('loading')"
+                                                    onerror="this.src='assets/img/news-placeholder.jpg'">  
+                                            </a>
                                         <?php else: ?>
                                             <img id="myNewsBanner <?php echo $itemIndex; ?>" 
                                                 src="assets/img/news-placeholder.jpg" 
@@ -799,20 +806,24 @@ $result = $conn->query($sql);
                                             </div>
                                         </div>
 
+                                        <?php 
+                                            $excerpt = strip_tags($row['Content']);
+                                            $excerptTruncated = mb_substr($excerpt, 0, 150);
+                                        ?>
+
                                         <!-- Excerpt -->
                                         <p class="news-card-excerpt">
-                                            <?php 
-                                                $excerpt = strip_tags($row['Content']);
-                                                echo htmlspecialchars(mb_substr($excerpt, 0, 150)) . '...';
-                                            ?>
+                                            <?php echo htmlspecialchars($excerptTruncated); ?>...
                                         </p>
 
                                         <!-- Actions -->
                                         <div class="news-card-actions">                                
                                             <a class="newsViewer news-card-btn" 
-                                              href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
-                                              data-bs-toggle="modal" 
-                                              data-bs-target="#newsModal"> 
+                                               href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                               data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
+                                               data-excerpt="<?php echo htmlspecialchars($excerptTruncated, ENT_QUOTES); ?>"
+                                               data-bs-toggle="modal" 
+                                               data-bs-target="#newsModal"> 
                                                 <i class="bi bi-play"></i>
                                                 Leer más
                                             </a>
@@ -2032,27 +2043,22 @@ $result = $conn->query($sql);
 
 <!-- Modal Structure -->
 <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newsModalLabel">Visor de Noticias</h5>
+        <label class="modal-title" id="newsModalLabel"><h5 id="newsModalTitle" class="news-modal-title mb-2"></h5></label>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="ratio ratio-16x9">
-        <div class="mfp-iframe-scaler">
-          <div class="mfp-close"></div>
-          <iframe id="newsFrame"
-                  width="560" 
-                  height="315" 
-                  src="" 
-                  title="YouTube video player" 
-                  frameborder="0"
-                  allow="autoplay;" 
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen>
-              </iframe>
-            </div>  
+      
+                
+      <div class="modal-body p-0">
+        <img id="newsFrame"
+             class="img-fluid w-100"
+             src=""
+             alt="Imagen de noticia"
+             loading="lazy">
+        <div class="news-modal-copy p-3">
+          <p id="newsModalExcerpt" class="news-modal-excerpt mb-0"></p>
         </div>
       </div>
     </div>

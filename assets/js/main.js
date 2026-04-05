@@ -23,9 +23,18 @@ for (let i = 0; i < links.length; i++) {
 const newsViewer = document.getElementsByClassName('newsViewer');
 for (let i = 0; i < newsViewer.length; i++) {
     newsViewer[i].addEventListener('click', function(event) {
-      const clickedUrl = event.target.href;
+      const anchor = event.currentTarget;
+      const clickedUrl = anchor.href;
       const newsFrame = document.getElementById('newsFrame');
+      const newsTitle = document.getElementById('newsModalTitle');
+      const newsExcerpt = document.getElementById('newsModalExcerpt');
       newsFrame.src = clickedUrl;
+      if (newsTitle) {
+        newsTitle.textContent = anchor.dataset.title || '';
+      }
+      if (newsExcerpt) {
+        newsExcerpt.textContent = anchor.dataset.excerpt || '';
+      }
     });
   }
   
