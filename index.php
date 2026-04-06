@@ -2,15 +2,15 @@
 <?php
 // Database connection
 
-// $host = "127.0.0.1";       		  // or your server host
-// $user = "xavimcom_xavimcom_root"; // your MySQL username
-// $pass = "RaspberryPi3B+";         // your MySQL password
-// $db   = "xavimcom_xavim";         // your database name
+$host = "127.0.0.1";       		  // or your server host
+$user = "xavimcom_xavimcom_root"; // your MySQL username
+$pass = "RaspberryPi3B+";         // your MySQL password
+$db   = "xavimcom_xavim";         // your database name
 
-$host = "127.0.0.1";       		      // or your server host
-$user = "root";                     // your MySQL username
-$pass = "";                         // your MySQL password
-$db   = "xavim_app";              // your database name
+// $host = "127.0.0.1";       		      // or your server host
+// $user = "root";                     // your MySQL username
+// $pass = "";                         // your MySQL password
+// $db   = "xavim_app";              // your database name
 
 
 
@@ -22,7 +22,7 @@ if ($conn->connect_error) {
 }
 
 // Set charset to UTF-8 to handle accents properly
-$conn->set_charset("utf8");
+$conn->set_charset("utf8mb4");
 
 // Query only published news, order by updated_at and created_at descending
 $sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, created_at, Updated_At
@@ -776,7 +776,8 @@ $result = $conn->query($sql);
                                             <a  class="newsViewer"  
                                                href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
-                                               data-excerpt="<?php echo htmlspecialchars($excerptTruncated, ENT_QUOTES); ?>"
+                                               data-content="<?php echo html_entity_decode($row['Content']); ?>"
+                                               data-image="<?php echo htmlspecialchars($row['ImageUrl'], ENT_QUOTES); ?>"
                                                data-bs-toggle="modal" 
                                                data-bs-target="#newsModal">
                                                <img id="myNewsBanner <?php echo $itemIndex; ?>" src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
@@ -830,7 +831,8 @@ $result = $conn->query($sql);
                                             <a class="newsViewer news-card-btn" 
                                                href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
-                                               data-excerpt="<?php echo htmlspecialchars($excerptTruncated, ENT_QUOTES); ?>"
+                                               data-content="<?php echo html_entity_decode($row['Content']); ?>"
+                                               data-image="<?php echo htmlspecialchars($row['ImageUrl'], ENT_QUOTES); ?>"
                                                data-bs-toggle="modal" 
                                                data-bs-target="#newsModal"> 
                                                 <i class="bi bi-play"></i>
@@ -2055,7 +2057,7 @@ $result = $conn->query($sql);
              src=""
              alt="Imagen de noticia"
              loading="lazy">
-        <div class="news-modal-copy p-3">
+        <div class="news-modal-copy p-3" style="max-height: 50vh; overflow-y: auto;">
           <p id="newsModalExcerpt" class="news-modal-excerpt mb-0"></p>
         </div>
       </div>
