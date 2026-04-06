@@ -1,10 +1,16 @@
 
 <?php
 // Database connection
-$host = "127.0.0.1";       		  // or your server host
-$user = "root"; // your MySQL username
-$pass = "";         // your MySQL password
-$db   = "xavim_app";         // your database name
+
+// $host = "127.0.0.1";       		  // or your server host
+// $user = "xavimcom_xavimcom_root"; // your MySQL username
+// $pass = "RaspberryPi3B+";         // your MySQL password
+// $db   = "xavimcom_xavim";         // your database name
+
+$host = "127.0.0.1";       		      // or your server host
+$user = "root";                     // your MySQL username
+$pass = "";                         // your MySQL password
+$db   = "xavim_app";              // your database name
 
 
 
