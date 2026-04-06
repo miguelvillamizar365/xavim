@@ -21,6 +21,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Set charset to UTF-8 to handle accents properly
+$conn->set_charset("utf8");
+
 // Query only published news, order by updated_at and created_at descending
 $sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, created_at, Updated_At
         FROM news
@@ -832,18 +835,7 @@ $result = $conn->query($sql);
                                                data-bs-target="#newsModal"> 
                                                 <i class="bi bi-play"></i>
                                                 Leer más
-                                            </a>
-                                            
-                                            <div class="news-card-stats">
-                                                <div class="news-card-stat">
-                                                    <span>👁</span>
-                                                    <span>124</span>
-                                                </div>
-                                                <div class="news-card-stat">
-                                                    <span>💬</span>
-                                                    <span>5</span>
-                                                </div>
-                                            </div>
+                                            </a>                
                                         </div>
                                     </div>
                                 </article>
