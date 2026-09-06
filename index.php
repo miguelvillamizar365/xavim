@@ -233,7 +233,7 @@ $result = $conn->query($sql);
                 <div class="col-lg-6">
                   <ul>
                     <li><p><i class="bi bi-chevron-right"></i> Grado: <span>Master</span> </p></li>
-                    <li><p><i class="bi bi-chevron-right"></i> Email: <span>xavimurillo7@gmail.com</span></p></li>
+                    <li><p><i class="bi bi-chevron-right"></i> Email: <span>xavim@xavim.com.co</span></p></li>
                   </ul>
                 </div>
               </div>
@@ -816,14 +816,12 @@ $result = $conn->query($sql);
                                             </div>
                                         </div>
 
-                                        <?php 
-                                            $excerpt = strip_tags($row['Content']);
-                                            $excerptTruncated = mb_substr($excerpt, 0, 150);
-                                        ?>
-
                                         <!-- Excerpt -->
                                         <p class="news-card-excerpt">
-                                            <?php echo htmlspecialchars($excerptTruncated); ?>...
+                                            <?php 
+                                                $excerpt = strip_tags($row['Content']);
+                                                echo htmlspecialchars(mb_substr($excerpt, 0, 150)) . '...';
+                                            ?>
                                         </p>
 
                                         <!-- Actions -->
@@ -1935,7 +1933,7 @@ $result = $conn->query($sql);
                 <i class="bi bi-envelope flex-shrink-0"></i>
                 <div>
                   <h3>Envianos un correo</h3>
-                  <p>xavimurillo7@gmail.com</p>
+                  <p>xavim@xavim.com.co</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -2060,10 +2058,12 @@ $result = $conn->query($sql);
         <div class="news-modal-copy p-3" style="max-height: 50vh; overflow-y: auto;">
           <p id="newsModalExcerpt" class="news-modal-excerpt mb-0"></p>
         </div>
+
       </div>
     </div>
   </div>
 </div>
+
   <!-- Vendor JS Files -->
    
   <script src="assets/js/jquery-1.12.4.min.js"></script>
