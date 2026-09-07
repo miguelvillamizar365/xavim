@@ -43,8 +43,9 @@ for (let i = 0; i < newsViewer.length; i++) {
       const newsSocial  = document.getElementById('newsModalSocial');
 
       // Título y contenido
-      if (newsTitle)   newsTitle.textContent = anchor.dataset.title   || '';
-      if (newsExcerpt) newsExcerpt.innerHTML  = anchor.dataset.content || '';
+      // Fix 2: textContent en vez de innerHTML para que white-space:pre-line respete los saltos
+      if (newsTitle)   newsTitle.textContent   = anchor.dataset.title   || '';
+      if (newsExcerpt) newsExcerpt.textContent  = anchor.dataset.content || '';
 
       // Imagen principal
       const imageUrl = anchor.dataset.image || '';
@@ -107,20 +108,18 @@ for (let i = 0; i < newsViewer.length; i++) {
         }
 
         // ── Spotify ────────────────────────────────────────────
+        // Fix 3: Spotify bloquea iframes externos por CSP (frame-ancestors)
+        // Solución: botón de redirección igual que los Reels de Instagram
         if (spotifyUrl) {
-          // Convertir URL pública a embed
-          const spotifyEmbed = spotifyUrl.replace(
-            /open\.spotify\.com\/(track|album|playlist|episode)\//,
-            'open.spotify.com/embed/$1/'
-          );
           newsSocial.innerHTML += `
             <div class="social-embed-block mb-3">
               <p class="social-label"><i class="bi bi-spotify"></i> Spotify</p>
-              <iframe src="${spotifyEmbed}"
-                      width="100%" height="152" frameborder="0"
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy" style="border-radius:8px;">
-              </iframe>
+              <a href="${spotifyUrl}" target="_blank" rel="noopener noreferrer"
+                 class="btn-social-redirect spotify-btn">
+                <i class="bi bi-spotify"></i>
+                Escuchar en Spotify
+                <i class="bi bi-box-arrow-up-right ms-1"></i>
+              </a>
             </div>`;
         }
 
