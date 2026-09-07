@@ -12,9 +12,21 @@
 const links = document.getElementsByClassName('my-link');
 for (let i = 0; i < links.length; i++) {
     links[i].addEventListener('click', function(event) {
-      const clickedUrl = event.target.href;
+      // FIX: usar currentTarget (el <a>) en lugar de target (puede ser el <i> hijo)
+      const clickedUrl = event.currentTarget.href;
       const videoFrame = document.getElementById('videoFrame');
-      videoFrame.src = clickedUrl;
+      if (videoFrame && clickedUrl) {
+        videoFrame.src = clickedUrl;
+      }
+    });
+  }
+
+  // Limpiar el src del iframe al cerrar el modal de video (evita que siga reproduciendo)
+  const videoModal = document.getElementById('videoModal');
+  if (videoModal) {
+    videoModal.addEventListener('hidden.bs.modal', function () {
+      const videoFrame = document.getElementById('videoFrame');
+      if (videoFrame) videoFrame.src = '';
     });
   }
   
@@ -24,17 +36,126 @@ const newsViewer = document.getElementsByClassName('newsViewer');
 for (let i = 0; i < newsViewer.length; i++) {
     newsViewer[i].addEventListener('click', function(event) {
       const anchor = event.currentTarget;
-      const clickedUrl = anchor.href;
-      const newsFrame = document.getElementById('newsFrame');
-      const newsTitle = document.getElementById('newsModalTitle');
+
+      const newsFrame   = document.getElementById('newsFrame');
+      const newsTitle   = document.getElementById('newsModalTitle');
       const newsExcerpt = document.getElementById('newsModalExcerpt');
-      newsFrame.src = clickedUrl;
-      if (newsTitle) {
-        newsTitle.textContent = anchor.dataset.title || '';
+      const newsSocial  = document.getElementById('newsModalSocial');
+
+      // Título y contenido
+      if (newsTitle)   newsTitle.textContent = anchor.dataset.title   || '';
+      if (newsExcerpt) newsExcerpt.innerHTML  = anchor.dataset.content || '';
+
+      // Imagen principal
+      const imageUrl = anchor.dataset.image || '';
+      if (newsFrame) {
+        if (imageUrl) {
+          newsFrame.src   = imageUrl;
+          newsFrame.style.display = 'block';
+        } else {
+          newsFrame.src   = '';
+          newsFrame.style.display = 'none';
+        }
       }
-      if (newsExcerpt) {
-        newsExcerpt.innerHTML = anchor.dataset.content || '';
+
+      // Bloque de redes sociales dentro del modal
+      if (newsSocial) {
+        newsSocial.innerHTML = '';  // limpiar contenido anterior
+
+        const instagramUrl = anchor.dataset.instagram || '';
+        const spotifyUrl   = anchor.dataset.spotify   || '';
+        const facebookUrl  = anchor.dataset.facebook  || '';
+
+        // ── Instagram ──────────────────────────────────────────
+        if (instagramUrl) {
+          const isReel = instagramUrl.includes('/reel/');
+          if (isReel) {
+            // Reel: botón de redirección
+            newsSocial.innerHTML += `
+              <div class="social-embed-block mb-3">
+                <p class="social-label"><i class="bi bi-instagram"></i> Instagram Reel</p>
+                <a href="${instagramUrl}" target="_blank" rel="noopener noreferrer"
+                   class="btn-social-redirect instagram-btn">
+                  <i class="bi bi-play-circle-fill"></i>
+                  Ver Reel en Instagram
+                  <i class="bi bi-box-arrow-up-right ms-1"></i>
+                </a>
+              </div>`;
+          } else {
+            // Post: embed oficial
+            newsSocial.innerHTML += `
+              <div class="social-embed-block mb-3">
+                <p class="social-label"><i class="bi bi-instagram"></i> Instagram</p>
+                <blockquote class="instagram-media w-100"
+                  data-instgrm-permalink="${instagramUrl}"
+                  data-instgrm-version="14"
+                  style="background:#FFF;border:0;border-radius:3px;
+                         box-shadow:0 0 1px 0 rgba(0,0,0,.5),0 1px 10px 0 rgba(0,0,0,.15);
+                         margin:0;max-width:540px;min-width:280px;padding:0;width:100%;">
+                </blockquote>
+              </div>`;
+            // Recargar el script de Instagram para renderizar el nuevo embed
+            if (window.instgrm) {
+              window.instgrm.Embeds.process();
+            } else {
+              const s = document.createElement('script');
+              s.src = '//www.instagram.com/embed.js';
+              s.async = true;
+              document.body.appendChild(s);
+            }
+          }
+        }
+
+        // ── Spotify ────────────────────────────────────────────
+        if (spotifyUrl) {
+          // Convertir URL pública a embed
+          const spotifyEmbed = spotifyUrl.replace(
+            /open\.spotify\.com\/(track|album|playlist|episode)\//,
+            'open.spotify.com/embed/$1/'
+          );
+          newsSocial.innerHTML += `
+            <div class="social-embed-block mb-3">
+              <p class="social-label"><i class="bi bi-spotify"></i> Spotify</p>
+              <iframe src="${spotifyEmbed}"
+                      width="100%" height="152" frameborder="0"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy" style="border-radius:8px;">
+              </iframe>
+            </div>`;
+        }
+
+        // ── Facebook ───────────────────────────────────────────
+        if (facebookUrl) {
+          const isVideo = facebookUrl.includes('/videos/') || facebookUrl.includes('watch');
+          const fbSrc   = isVideo
+            ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(facebookUrl)}&show_text=false&width=560`
+            : `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(facebookUrl)}&show_text=true&width=560`;
+          const fbHeight = isVideo ? '315' : '400';
+          const fbLabel  = isVideo ? 'Facebook Video' : 'Facebook Post';
+          newsSocial.innerHTML += `
+            <div class="social-embed-block mb-3">
+              <p class="social-label"><i class="bi bi-facebook"></i> ${fbLabel}</p>
+              <iframe src="${fbSrc}"
+                      width="100%" height="${fbHeight}" frameborder="0"
+                      scrolling="no"
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      allowfullscreen loading="lazy"
+                      style="border-radius:8px; border:none; overflow:hidden;">
+              </iframe>
+            </div>`;
+        }
       }
+    });
+  }
+
+  // Limpiar el modal de noticias al cerrarlo
+  const newsModal = document.getElementById('newsModal');
+  if (newsModal) {
+    newsModal.addEventListener('hidden.bs.modal', function () {
+      const newsFrame  = document.getElementById('newsFrame');
+      const newsSocial = document.getElementById('newsModalSocial');
+      if (newsFrame)  { newsFrame.src = ''; }
+      if (newsSocial) { newsSocial.innerHTML = ''; }
     });
   }
   
@@ -359,29 +480,15 @@ for (let i = 0; i < newsViewer.length; i++) {
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
-    const videoModal = document.getElementById('videoModal');
+    const videoModalEl = document.getElementById('videoModal');
     
-    videoModal.addEventListener('hide.bs.modal', () => {
-      videoFrame.src = '';
-    });
+    if (videoModalEl) {
+      videoModalEl.addEventListener('hide.bs.modal', () => {
+        const videoFrame = document.getElementById('videoFrame');
+        if (videoFrame) videoFrame.src = '';
+      });
+    }
 
-    const newsModal = document.getElementById('newsModal');
-    
-    newsModal.addEventListener('show.bs.modal', function (event) {
-      const button = event.relatedTarget;
-      const title = button.getAttribute('data-title');
-      const content = button.getAttribute('data-content');
-      const imageUrl = button.src || button.getAttribute('data-image');
-      
-      document.getElementById('newsModalTitle').textContent = title;
-      document.getElementById('newsModalExcerpt').innerHTML = content;
-      document.getElementById('newsFrame').src = imageUrl;
-    });
-    
-    newsModal.addEventListener('hide.bs.modal', () => {
-      document.getElementById('newsFrame').src = '';
-    });
-  
     document.addEventListener('DOMContentLoaded', function() {
     // Add loading class to images initially
     document.querySelectorAll('.news-card-image').forEach(function(imageContainer) {
@@ -533,4 +640,3 @@ document.head.appendChild(style);
                 observer.observe(video);
             }
 })();
-

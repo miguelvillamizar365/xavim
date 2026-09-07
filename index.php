@@ -1,11 +1,16 @@
-
 <?php
 // Database connection
 
-$host = "127.0.0.1";       		  // or your server host
-$user = "xavimcom_xavimcom_root"; // your MySQL username
-$pass = "RaspberryPi3B+";         // your MySQL password
-$db   = "xavimcom_xavim";         // your database name
+// $host = "127.0.0.1";       		  // or your server host
+// $user = "xavimcom_xavimcom_root"; // your MySQL username
+// $pass = "RaspberryPi3B+";         // your MySQL password
+// $db   = "xavimcom_xavim";         // your database name
+
+$host = "192.168.1.14";       		  // or your server host
+$user = "xavim_user"; // your MySQL username
+$pass = "PruebA01*";         // your MySQL password
+$db   = "xavim_app";         // your database name
+
 
 // $host = "127.0.0.1";       		      // or your server host
 // $user = "root";                     // your MySQL username
@@ -25,7 +30,9 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 // Query only published news, order by updated_at and created_at descending
-$sql = "SELECT NewsId, Title, Content, Author, ImageUrl, Category, created_at, Updated_At
+$sql = "SELECT NewsId, Title, Content, Author, ImageUrl,
+               InstagramUrl, SpotifyUrl, FacebookUrl,
+               Category, created_at, Updated_At
         FROM news
         WHERE IsPublished = 1
         ORDER BY Updated_At DESC, created_at DESC";
@@ -773,11 +780,14 @@ $result = $conn->query($sql);
                                     <!-- Card Image -->
                                     <div class="news-card-image">
                                         <?php if (!empty($row['ImageUrl'])): ?>                               
-                                            <a  class="newsViewer"  
+                                            <a class="newsViewer"  
                                                href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
                                                data-content="<?php echo html_entity_decode($row['Content']); ?>"
                                                data-image="<?php echo htmlspecialchars($row['ImageUrl'], ENT_QUOTES); ?>"
+                                               data-instagram="<?php echo htmlspecialchars($row['InstagramUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-spotify="<?php echo htmlspecialchars($row['SpotifyUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-facebook="<?php echo htmlspecialchars($row['FacebookUrl'] ?? '', ENT_QUOTES); ?>"
                                                data-bs-toggle="modal" 
                                                data-bs-target="#newsModal">
                                                <img id="myNewsBanner <?php echo $itemIndex; ?>" src="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
@@ -791,6 +801,29 @@ $result = $conn->query($sql);
                                                 src="assets/img/news-placeholder.jpg" 
                                                 class="d-block w-100"
                                                 alt="Imagen de noticia predeterminada">
+                                        <?php endif; ?>
+
+                                        <?php
+                                          // Íconos de redes sociales sobre la imagen
+                                          $hasSocial = !empty($row['InstagramUrl']) || !empty($row['SpotifyUrl']) || !empty($row['FacebookUrl']);
+                                          if ($hasSocial): ?>
+                                            <div class="news-social-badges">
+                                                <?php if (!empty($row['InstagramUrl'])): ?>
+                                                    <span class="news-social-badge instagram" title="<?php echo strpos($row['InstagramUrl'], '/reel/') !== false ? 'Instagram Reel' : 'Instagram Post'; ?>">
+                                                        <i class="bi bi-instagram"></i>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($row['SpotifyUrl'])): ?>
+                                                    <span class="news-social-badge spotify" title="Spotify">
+                                                        <i class="bi bi-spotify"></i>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($row['FacebookUrl'])): ?>
+                                                    <span class="news-social-badge facebook" title="<?php echo (strpos($row['FacebookUrl'], '/videos/') !== false || strpos($row['FacebookUrl'], 'watch') !== false) ? 'Facebook Video' : 'Facebook Post'; ?>">
+                                                        <i class="bi bi-facebook"></i>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
 
@@ -827,13 +860,16 @@ $result = $conn->query($sql);
                                         <!-- Actions -->
                                         <div class="news-card-actions">                                
                                             <a class="newsViewer news-card-btn" 
-                                               href="<?php echo htmlspecialchars($row['ImageUrl']); ?>" 
+                                               href="<?php echo htmlspecialchars($row['ImageUrl'] ?? '#'); ?>" 
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
                                                data-content="<?php echo html_entity_decode($row['Content']); ?>"
-                                               data-image="<?php echo htmlspecialchars($row['ImageUrl'], ENT_QUOTES); ?>"
+                                               data-image="<?php echo htmlspecialchars($row['ImageUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-instagram="<?php echo htmlspecialchars($row['InstagramUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-spotify="<?php echo htmlspecialchars($row['SpotifyUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-facebook="<?php echo htmlspecialchars($row['FacebookUrl'] ?? '', ENT_QUOTES); ?>"
                                                data-bs-toggle="modal" 
                                                data-bs-target="#newsModal"> 
-                                                <i class="bi bi-play"></i>
+                                                <i class="bi bi-eye"></i>
                                                 Leer más
                                             </a>                
                                         </div>
@@ -2039,26 +2075,32 @@ $result = $conn->query($sql);
 </div>
 
 
-<!-- Modal Structure -->
+<!-- Modal Structure — Noticias -->
 <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <label class="modal-title" id="newsModalLabel"><h5 id="newsModalTitle" class="news-modal-title mb-2"></h5></label>
+        <label class="modal-title" id="newsModalLabel">
+          <h5 id="newsModalTitle" class="news-modal-title mb-2"></h5>
+        </label>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       
-                
-      <div class="modal-body p-0">
+      <div class="modal-body p-0" style="max-height: 80vh; overflow-y: auto;">
+        <!-- Imagen principal -->
         <img id="newsFrame"
              class="img-fluid w-100"
              src=""
              alt="Imagen de noticia"
              loading="lazy">
-        <div class="news-modal-copy p-3" style="max-height: 50vh; overflow-y: auto;">
+
+        <!-- Contenido / excerpt -->
+        <div class="news-modal-copy p-3">
           <p id="newsModalExcerpt" class="news-modal-excerpt mb-0"></p>
         </div>
 
+        <!-- Bloque de redes sociales (se rellena desde JS) -->
+        <div id="newsModalSocial" class="px-3 pb-3"></div>
       </div>
     </div>
   </div>
@@ -2089,4 +2131,3 @@ $result = $conn->query($sql);
 <?php
 $conn->close();
 ?>
-
