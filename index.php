@@ -778,39 +778,39 @@ $result = $conn->query($sql);
                             <div class="news-card-container">
                                 <article class="news-card" data-aos="fade-up">
                                     <?php
+                                        // Fix 1: Sanitizar NULLs que llegan como string 'NULL' desde MySQL
+                                        $instagramUrl = (!empty($row['InstagramUrl']) && $row['InstagramUrl'] !== 'NULL') ? $row['InstagramUrl'] : '';
+                                        $spotifyUrl   = (!empty($row['SpotifyUrl'])   && $row['SpotifyUrl']   !== 'NULL') ? $row['SpotifyUrl']   : '';
+                                        $facebookUrl  = (!empty($row['FacebookUrl'])  && $row['FacebookUrl']  !== 'NULL') ? $row['FacebookUrl']  : '';
+                                        $imageUrl     = (!empty($row['ImageUrl'])     && $row['ImageUrl']     !== 'NULL') ? $row['ImageUrl']     : '';
+
                                         // Detectar tipo de contenido principal
-                                        $hasFacebook  = !empty($row['FacebookUrl']);
-                                        $hasInstagram = !empty($row['InstagramUrl']);
-                                        $hasSpotify   = !empty($row['SpotifyUrl']);
-                                        $hasImage     = !empty($row['ImageUrl']);
+                                        $hasFacebook  = !empty($facebookUrl);
+                                        $hasInstagram = !empty($instagramUrl);
+                                        $hasSpotify   = !empty($spotifyUrl);
+                                        $hasImage     = !empty($imageUrl);
                                         $hasSocial    = $hasFacebook || $hasInstagram || $hasSpotify;
 
-                                        // Fix 4: si no hay imagen pero sí Facebook, usar thumbnail de Facebook
                                         $isFbVideo = $hasFacebook && (
-                                            strpos($row['FacebookUrl'], '/videos/') !== false ||
-                                            strpos($row['FacebookUrl'], 'watch') !== false
+                                            strpos($facebookUrl, '/videos/') !== false ||
+                                            strpos($facebookUrl, 'watch') !== false
                                         );
-                                        $fbThumbnailUrl = '';
-                                        if (!$hasImage && $hasFacebook) {
-                                            $fbEncoded      = urlencode($row['FacebookUrl']);
-                                            $fbThumbnailUrl = "https://graph.facebook.com/?id={$fbEncoded}&fields=full_picture";
-                                        }
                                     ?>
 
                                     <!-- Card Image -->
                                     <div class="news-card-image">
                                         <?php if ($hasImage): ?>
                                             <a class="newsViewer"
-                                               href="<?php echo htmlspecialchars($row['ImageUrl']); ?>"
+                                               href="<?php echo htmlspecialchars($imageUrl); ?>"
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
                                                data-content="<?php echo htmlspecialchars($row['Content'], ENT_QUOTES); ?>"
-                                               data-image="<?php echo htmlspecialchars($row['ImageUrl'], ENT_QUOTES); ?>"
-                                               data-instagram="<?php echo htmlspecialchars($row['InstagramUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-spotify="<?php echo htmlspecialchars($row['SpotifyUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-facebook="<?php echo htmlspecialchars($row['FacebookUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-image="<?php echo htmlspecialchars($imageUrl, ENT_QUOTES); ?>"
+                                               data-instagram="<?php echo htmlspecialchars($instagramUrl, ENT_QUOTES); ?>"
+                                               data-spotify="<?php echo htmlspecialchars($spotifyUrl, ENT_QUOTES); ?>"
+                                               data-facebook="<?php echo htmlspecialchars($facebookUrl, ENT_QUOTES); ?>"
                                                data-bs-toggle="modal"
                                                data-bs-target="#newsModal">
-                                                <img src="<?php echo htmlspecialchars($row['ImageUrl']); ?>"
+                                                <img src="<?php echo htmlspecialchars($imageUrl); ?>"
                                                      alt="<?php echo htmlspecialchars($row['Title']); ?>"
                                                      loading="lazy"
                                                      onload="this.parentElement.classList.remove('loading')"
@@ -824,14 +824,14 @@ $result = $conn->query($sql);
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
                                                data-content="<?php echo htmlspecialchars($row['Content'], ENT_QUOTES); ?>"
                                                data-image=""
-                                               data-instagram="<?php echo htmlspecialchars($row['InstagramUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-spotify="<?php echo htmlspecialchars($row['SpotifyUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-facebook="<?php echo htmlspecialchars($row['FacebookUrl'], ENT_QUOTES); ?>"
+                                               data-instagram="<?php echo htmlspecialchars($instagramUrl, ENT_QUOTES); ?>"
+                                               data-spotify="<?php echo htmlspecialchars($spotifyUrl, ENT_QUOTES); ?>"
+                                               data-facebook="<?php echo htmlspecialchars($facebookUrl, ENT_QUOTES); ?>"
                                                data-bs-toggle="modal"
                                                data-bs-target="#newsModal"
                                                style="display:block; width:100%; height:100%; overflow:hidden;">
                                                 <iframe
-                                                    src="https://www.facebook.com/plugins/<?php echo $isFbVideo ? 'video' : 'post'; ?>.php?href=<?php echo urlencode($row['FacebookUrl']); ?>&show_text=false&width=560"
+                                                    src="https://www.facebook.com/plugins/<?php echo $isFbVideo ? 'video' : 'post'; ?>.php?href=<?php echo urlencode($facebookUrl); ?>&show_text=false&width=560"
                                                     width="100%" height="100%"
                                                     style="border:none; pointer-events:none;"
                                                     scrolling="no" frameborder="0"
@@ -850,7 +850,7 @@ $result = $conn->query($sql);
                                                data-content="<?php echo htmlspecialchars($row['Content'], ENT_QUOTES); ?>"
                                                data-image=""
                                                data-instagram=""
-                                               data-spotify="<?php echo htmlspecialchars($row['SpotifyUrl'], ENT_QUOTES); ?>"
+                                               data-spotify="<?php echo htmlspecialchars($spotifyUrl, ENT_QUOTES); ?>"
                                                data-facebook=""
                                                data-bs-toggle="modal"
                                                data-bs-target="#newsModal"
@@ -864,36 +864,46 @@ $result = $conn->query($sql);
                                                  alt="Imagen de noticia predeterminada">
                                         <?php endif; ?>
 
-                                        <!-- Fix 1: Íconos de redes siempre visibles si hay URL social -->
-                                        <?php if ($hasSocial): ?>
-                                            <div class="news-social-badges">
-                                                <?php if ($hasInstagram): ?>
-                                                    <span class="news-social-badge instagram"
-                                                          title="<?php echo strpos($row['InstagramUrl'], '/reel/') !== false ? 'Instagram Reel' : 'Instagram Post'; ?>">
-                                                        <i class="bi bi-instagram"></i>
-                                                    </span>
-                                                <?php endif; ?>
-                                                <?php if ($hasSpotify): ?>
-                                                    <span class="news-social-badge spotify" title="Spotify">
-                                                        <i class="bi bi-spotify"></i>
-                                                    </span>
-                                                <?php endif; ?>
-                                                <?php if ($hasFacebook): ?>
-                                                    <span class="news-social-badge facebook"
-                                                          title="<?php echo $isFbVideo ? 'Facebook Video' : 'Facebook Post'; ?>">
-                                                        <i class="bi bi-facebook"></i>
-                                                    </span>
-                                                <?php endif; ?>
-                                            </div>
-                                        <?php endif; ?>
                                     </div>
-
                                     <!-- Card Content -->
                                     <div class="news-card-content">
-                                        <!-- Category Badge -->
-                                        <span class="news-card-category">
-                                            <?php echo !empty($row['Category']) ? htmlspecialchars($row['Category']) : 'General'; ?>
-                                        </span>
+                                        <!-- Categoría + íconos de redes sociales en la misma fila -->
+                                        <div class="news-card-top-row">
+                                            <span class="news-card-category">
+                                                <?php echo !empty($row['Category']) ? htmlspecialchars($row['Category']) : 'General'; ?>
+                                            </span>
+
+                                            <?php if ($hasSocial): ?>
+                                                <div class="news-social-inline">
+                                                    <?php if ($hasInstagram): ?>
+                                                        <?php $igLabel = strpos($instagramUrl, '/reel/') !== false ? 'Instagram Reel' : 'Instagram Post'; ?>
+                                                        <a href="<?php echo htmlspecialchars($instagramUrl); ?>"
+                                                           target="_blank" rel="noopener noreferrer"
+                                                           class="news-social-icon instagram"
+                                                           title="<?php echo $igLabel; ?>">
+                                                            <i class="bi bi-instagram"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($hasSpotify): ?>
+                                                        <a href="<?php echo htmlspecialchars($spotifyUrl); ?>"
+                                                           target="_blank" rel="noopener noreferrer"
+                                                           class="news-social-icon spotify"
+                                                           title="Escuchar en Spotify">
+                                                            <i class="bi bi-spotify"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($hasFacebook): ?>
+                                                        <?php $fbLabel = $isFbVideo ? 'Facebook Video' : 'Facebook Post'; ?>
+                                                        <a href="<?php echo htmlspecialchars($facebookUrl); ?>"
+                                                           target="_blank" rel="noopener noreferrer"
+                                                           class="news-social-icon facebook"
+                                                           title="<?php echo $fbLabel; ?>">
+                                                            <i class="bi bi-facebook"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
 
                                         <!-- Title -->
                                         <h3 class="news-card-title">
@@ -923,13 +933,13 @@ $result = $conn->query($sql);
                                         <!-- Actions -->
                                         <div class="news-card-actions">
                                             <a class="newsViewer news-card-btn"
-                                               href="<?php echo $hasImage ? htmlspecialchars($row['ImageUrl']) : '#'; ?>"
+                                               href="<?php echo $hasImage ? htmlspecialchars($imageUrl) : '#'; ?>"
                                                data-title="<?php echo htmlspecialchars($row['Title'], ENT_QUOTES); ?>"
                                                data-content="<?php echo htmlspecialchars($row['Content'], ENT_QUOTES); ?>"
-                                               data-image="<?php echo htmlspecialchars($row['ImageUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-instagram="<?php echo htmlspecialchars($row['InstagramUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-spotify="<?php echo htmlspecialchars($row['SpotifyUrl'] ?? '', ENT_QUOTES); ?>"
-                                               data-facebook="<?php echo htmlspecialchars($row['FacebookUrl'] ?? '', ENT_QUOTES); ?>"
+                                               data-image="<?php echo htmlspecialchars($imageUrl, ENT_QUOTES); ?>"
+                                               data-instagram="<?php echo htmlspecialchars($instagramUrl, ENT_QUOTES); ?>"
+                                               data-spotify="<?php echo htmlspecialchars($spotifyUrl, ENT_QUOTES); ?>"
+                                               data-facebook="<?php echo htmlspecialchars($facebookUrl, ENT_QUOTES); ?>"
                                                data-bs-toggle="modal"
                                                data-bs-target="#newsModal">
                                                 <i class="bi bi-eye"></i>
